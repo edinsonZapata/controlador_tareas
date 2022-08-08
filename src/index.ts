@@ -1,17 +1,36 @@
 import { config } from "dotenv";
 config();
 
-import express from 'express';
+// import express from 'express';
+// import { serverPort } from "./configurations";
+// import { connectToMongoDB } from 'tareas-nodetypes';
+// import { router } from './modules/index'
+
+// const app = express();
+// connectToMongoDB();
+
+// app.listen(serverPort, function(){
+//     console.log("escuchando servidor ",serverPort);
+// })
+
+// app.use(router);
+
+import 'reflect-metadata';
+import { Controllers } from "./modules";
+import { Server } from "componente-base";
 import { serverPort } from "./configurations";
-import { connectToMongoDB } from 'tareas-nodetypes';
+import { connectToMongoDB, mongoDbConnection } from "tareas-nodetypes";
 
-const app = express();
-connectToMongoDB();
+export const connectionString = process.env.MONGODB_CONNECTION_STRING
 
-app.get('/',function (req, res) {
-    console.log("funcionando")
-})
+console.log("conection",connectionString);
 
-app.listen(serverPort, function(){
-    console.log("escuchando servidor");
-})
+/**
+ * descripción 
+ * @type {*}
+ */
+const server = Server.instance();
+server.initiateAndStart(
+    Controllers, Number(serverPort), 'f0d032eaf2bd6f70.crt', 'f0d032eaf2bd6f70.key',
+    mongoDbConnection, connectToMongoDB
+).catch((error) => console.log("[INITIAL][ERROR]", error));
