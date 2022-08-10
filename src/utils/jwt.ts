@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { sign, verify } from "jsonwebtoken";
-import { User, Registry } from "tareas-nodetypes";
+import { User, Registry } from "nodetypes_tareas";
 import { jwtSecret, jwtSecretRegister } from "../configurations";
 
 /**
