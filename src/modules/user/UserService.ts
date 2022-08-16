@@ -1,4 +1,4 @@
-import { User, UserDocument, UserRole } from "nodetypes_tareas";
+import { User, RegistryDocument, UserRole, TypeDocuments, Registry } from "nodetypes_tareas";
 
 /**
  * @description
@@ -8,10 +8,10 @@ import { User, UserDocument, UserRole } from "nodetypes_tareas";
 export class UserService {
 
     async createUser(
-        name: {firstName: string, lastName: string}, username: string, password: string,
-        role: UserRole
-    ): Promise<UserDocument> {
-        const userSaved = await new User({ name, username, password, role}).save();
+        name: {firstName: string, lastName: string}, email: string,role: UserRole, typeDocument: TypeDocuments, numberDocument: number, password: string
+        
+    ): Promise<RegistryDocument> {
+        const userSaved = await new Registry({ name,email, role,typeDocument,numberDocument, password}).save();
         
         return userSaved
     }

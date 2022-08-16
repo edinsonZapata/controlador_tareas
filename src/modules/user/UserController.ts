@@ -4,10 +4,14 @@ import {JWTMiddleware, AccessPolicy} from "../../utils";
 import {UserService} from "./UserService";
 import {NextFunction} from "express";
 
+
+
 @Controller('/user')
 export class UserController {
-  private userService: UserService;
 
+    
+  private userService: UserService;
+  
   /**
    * Creates an instance of UserController.
    */
@@ -22,13 +26,13 @@ export class UserController {
            * descripción 
            * @type {*}
            */
-          const {name, username, password, role} = request.body
+          const {name, email , role,typeDocument,numberDocument, password} = request.body
 
-          if(!name || !name.firstName || !name.lastName || !username || !password || !role) {
+          if(!name || !name.firstName || !name.lastName || !email || !role  || !typeDocument || !numberDocument|| !password) {
               return response.status(400).json(MakeBadRequest(`Invalid parameters`));
           }
-
-          await this.userService.createUser(name, username, password, role)
+          
+          await this.userService.createUser(name, email ,role, typeDocument, numberDocument, password )
               .then(user => response.json(user))
               .catch(error => {
                   console.error("[USER CONTROLLER][ERROR]", error)
