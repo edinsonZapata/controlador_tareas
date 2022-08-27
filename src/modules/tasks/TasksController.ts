@@ -2,6 +2,7 @@ import { TasksService } from './TasksService';
 import {Controller, Get, MakeBadRequest, Post, Put} from "componente-base";
 import {NextFunction} from "express";
 import {Request, Response} from 'express'
+import { StatusTask } from 'nodetypes_tareas';
 
 @Controller('/tasks')
 export class TasksController {
@@ -39,6 +40,24 @@ export class TasksController {
         try {
             await this.tasksService.consultAllTasks()
                 .then(task => response.json(task))
+                .catch(error => {
+                    console.error("[USER CONTROLLER][ERROR]", error)
+                    response.status(500).json(error)
+                })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    @Get('/consultAllRecord')
+    async consultAllRecord(request: Request, response: Response, next: NextFunction) {
+        try {
+            
+            const {Status} = request.params as {  Status:('RESOLVED') };
+
+            await this.tasksService.consultAllRecords(StatusTask)
+
+                .then(records => response.json(records))
                 .catch(error => {
                     console.error("[USER CONTROLLER][ERROR]", error)
                     response.status(500).json(error)

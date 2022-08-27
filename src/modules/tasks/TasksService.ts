@@ -15,4 +15,10 @@ export class TasksService {
         
         return tasks
     }
+    async consultAllRecords(Status:StatusTask[]) {
+
+        const record = await Task.findOne(Status);
+        
+        return record
+    }
 }
