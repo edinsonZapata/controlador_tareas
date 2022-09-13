@@ -24,17 +24,17 @@
     "@types/bcryptjs": "^2.4.2",
     "@types/lodash": "^4.14.182",
     "axios": "^0.21.1",
+    "componente-base": "git+https://AndresSaldarriaga:ZSG9TtEMFjb7FaKJCPE7@bitbucket.org/chatbotsmartsoft/componente-base.git",
     "dotenv": "^16.0.1",
+    "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.5",
-    "componente-base": "git+https://AndresSaldarriaga:ZSG9TtEMFjb7FaKJCPE7@bitbucket.org/chatbotsmartsoft/componente-base.git",
     "multer": "1.1.0",
     "multer-s3": "^2.9.0",
     "nodemailer": "^6.4.11",
     "nodemon": "^2.0.19",
-    "nodetypes_tareas": "C:/Users/sebas/Documents/GitHub/nodetypes_tareas",
-    "typescript": "^4.7.4",
-    "express": "^4.18.1"
+    "nodetypes_tareas": "C:/Users/LENOVO/Documents/GitHub/nodetypes_tareas",
+    "typescript": "^4.7.4"
   },
   "devDependencies": {
     "@types/cors": "^2.8.9",
@@ -53,6 +53,7 @@
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
     "eslint": "^7.9.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "tsconfig-paths": "^4.1.0"
   }
 }
