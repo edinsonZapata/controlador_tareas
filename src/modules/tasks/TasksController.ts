@@ -122,39 +122,21 @@ export class TasksController {
         }
     }
 
-    @Get('/consultAllRecord')
+    @Get('/consultAllRecord/:status')
     async consultAllRecord(request: Request, response: Response, next: NextFunction) {
         try {    
 
-            const  task: TaskDocument[]  = await Task.find( { status:  StatusTask.RESOLVED })
+            const statusRecord = request.params;
 
-            //const status  = await Task.find( { status: StatusTask.RESOLVED} )
-
-            console.log(task);
-
-            // await this.tasksService.consultRecord(task)
-            //     .then(task => response.status(200).json(task))
-            //      .catch(error => {
-            //          console.error("[USER CONTROLLER][ERRO]", error);
-            //         response.status(500).json(error)
-            //      })
-
-                          
-            // const {status} = request.body
-
-            // if(!status) {
-            //     return response.status(400).json(MakeBadRequest(`Invalid parameters`));
-            // }
-
-            // await this.tasksService.consultRecord(status)
-            //     .then(task => response.status(200).json(task))
-            //     .catch(error => {
-            //         console.error("[USER CONTROLLER][ERRO]", error);
-            // response.status(500).json(error)
-            //     })
-
-                
-
+            if(!statusRecord) {
+                return response.status(400).json(MakeBadRequest(`Invalid parameters`));
+            }
+            const status  = await Task.find(statusRecord)
+            .then(task => response.status(200).json(task))
+                  .catch(error => {
+                      console.error("[USER CONTROLLER][ERRO]", error);
+                    response.status(500).json(error)
+                 })        
         } catch (error) {
             next(error)
         }

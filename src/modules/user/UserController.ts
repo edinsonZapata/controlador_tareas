@@ -3,7 +3,7 @@ import {Request, Response} from 'express'
 // import {JWTMiddleware, AccessPolicy} from "../../utils";
 import {UserService} from "./UserService";
 import {jwtSecret, jwtSecretRegister} from "../../configurations";
-import {User, Registry } from "nodetypes_tareas";
+import {User, Registry, UserRole } from "nodetypes_tareas";
 import {NextFunction} from "express";
 import { sign } from "jsonwebtoken";
 // import { get } from "lodash";
@@ -90,8 +90,8 @@ export class UserController {
     async Login(request: Request, response: Response, next: NextFunction) {
         try {
 
-            const { email, password} = request.body;
-            const userlogin = await User.findOne({ email: email });            
+            const { email, password, register: registryid} = request.body;
+            const userlogin = await User.findOne({ email, registry: registryid });            
             console.log(userlogin);
 
             if (!userlogin)  {
@@ -105,12 +105,21 @@ export class UserController {
             }
             
 
+            // if (userlogin.role === UserRole.ADMIN) {
+            //     const usersState = await User.findOne({ user: userlogin._id });
+            //     if (!usersState.disable) {
+            //         return response.status(401).json({ status: 'error', code: 'disabled' })
+            //     }              
+            // }
+
             const firstLogin = !userlogin.lastLogin
             userlogin.lastLogin = new Date();          
 
             const payload = {
+                _id: userlogin._id,
                 email: userlogin.email,
                 password: userlogin.password,
+                lastLogin: userlogin.lastLogin,
                 firstLogin
             }
             
